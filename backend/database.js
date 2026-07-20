@@ -59,6 +59,21 @@ db.serialize(() => {
             FOREIGN KEY (aposta_id) REFERENCES apostas (id) ON DELETE CASCADE
         )
     `);
+    // ---> ADICIONE ESTA NOVA TABELA AQUI <---
+    db.run(`
+        CREATE TABLE IF NOT EXISTS transacoes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            bankroll_id INTEGER NOT NULL,
+            casa_aposta_id INTEGER NOT NULL,
+            tipo TEXT NOT NULL,
+            valor REAL NOT NULL,
+            data_hora DATETIME NOT NULL,
+            FOREIGN KEY (bankroll_id) REFERENCES bankrolls (id) ON DELETE CASCADE,
+            FOREIGN KEY (casa_aposta_id) REFERENCES casas_apostas (id) ON DELETE CASCADE
+        )
+    `);
+
+    
 });
 
 module.exports = db;
